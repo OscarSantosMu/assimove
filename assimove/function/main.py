@@ -6,17 +6,26 @@ import numpy as np
 # Let's say we have the following driver locations (latitude, longitude)
 driver_locations = np.array(
     [
-        [40.712776, -74.005974],  # New York
-        [34.052235, -118.243683],  # Los Angeles
-        [41.878113, -87.629799],  # Chicago
-        [29.760427, -95.369804],  # Houston
+        [19.014245, -98.246697],  # Imperio Nórdico Parque Metropolitano
+        [19.038105, -98.213612],  # Facultad de Medicina BUAP
+        [19.118978, -98.255183],  # Volkswagen
+        [19.03334, -98.233729],  # Plaza Angelópolis
+        [19.071305, -98.202109],  # Central de Autobuses CAPU
+        [19.019684, -98.198403],  # Walmart San Manuel
     ]
 )
-# make a list of cities
-cities = ["New York", "Los Angeles", "Chicago", "Houston"]
+# make a list of places
+places = [
+    "Imperio Nórdico Parque Metropolitano",
+    "Facultad de Medicina BUAP",
+    "Volkswagen",
+    "Plaza Angelópolis",
+    "Central de Autobuses CAPU",
+    "Walmart San Manuel",
+]
 
 # And we have a rider at the following location
-rider_location = np.array([[37.774929, -122.419418]])  # San Francisco
+rider_location = np.array([[19.017313, -98.240803]])  # ITESM Campus Puebla
 
 # Create a BallTree with the driver locations
 tree = BallTree(driver_locations, leaf_size=2)
@@ -32,13 +41,17 @@ mean_lat = statistics.mean(lat for lat, lon in driver_locations)
 mean_lon = statistics.mean(lon for lat, lon in driver_locations)
 
 start_coords = (mean_lat, mean_lon)
-m = folium.Map(location=start_coords, zoom_start=4)
+m = folium.Map(location=start_coords, zoom_start=12)
 
 for i, location in enumerate(driver_locations):
-    folium.Marker(location, popup=cities[i]).add_to(m)
+    folium.Marker(
+        location, popup=places[i], icon=folium.Icon(icon="car", prefix="fa")
+    ).add_to(m)
 
 folium.Marker(
-    rider_location, icon=folium.Icon(color="red"), popup="San Francisco"
+    rider_location,
+    icon=folium.Icon(color="red", icon="person", prefix="fa"),
+    popup="ITESM Campus Puebla",
 ).add_to(m)
 
 # Draw a line from rider to nearest driver
