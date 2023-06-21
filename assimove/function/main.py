@@ -3,6 +3,8 @@ import folium
 from sklearn.neighbors import BallTree
 import numpy as np
 
+lat, lon = input("Enter your location: ").split(",")
+
 # Let's say we have the following driver locations (latitude, longitude)
 driver_locations = np.array(
     [
@@ -12,6 +14,7 @@ driver_locations = np.array(
         [19.03334, -98.233729],  # Plaza Angelópolis
         [19.071305, -98.202109],  # Central de Autobuses CAPU
         [19.019684, -98.198403],  # Walmart San Manuel
+        [float(lat), float(lon)],  # Invernadero Cuetzalan
     ]
 )
 # make a list of places
@@ -22,6 +25,7 @@ places = [
     "Plaza Angelópolis",
     "Central de Autobuses CAPU",
     "Walmart San Manuel",
+    "Invernadero Cuetzalan",
 ]
 
 # And we have a rider at the following location
@@ -41,7 +45,7 @@ mean_lat = statistics.mean(lat for lat, lon in driver_locations)
 mean_lon = statistics.mean(lon for lat, lon in driver_locations)
 
 start_coords = (mean_lat, mean_lon)
-m = folium.Map(location=start_coords, zoom_start=12)
+m = folium.Map(location=start_coords, zoom_start=13)
 
 for i, location in enumerate(driver_locations):
     folium.Marker(
