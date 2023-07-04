@@ -16,6 +16,10 @@
 
 Una aplicación móvil que conecta personas con discapacidad con personas en busca de obtener ingresos económicos, al mismo tiempo que ayudando a las personas con discapacidad en movilidad esporádica, como para ir al banco, ir al supermercado, ir a una consulta médica, acompañado o acompañada a lo largo de dichas actividades.
 
+![](assets/img/app.png)
+
+> Pruébala [aquí](https://www.figma.com/proto/uMjaeDhkEk9HMwjnfOCh4G/Hack-Puebla-UX%2FUI-Wireframe?node-id=0-2&starting-point-node-id=0%3A2&show-proto-sidebar=1)
+
 # Arquitectura
 
 Se diseñaron dos posibles arquitecturas para la aplicación.
