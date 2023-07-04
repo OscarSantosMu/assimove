@@ -24,6 +24,9 @@ Una aplicación móvil que conecta personas con discapacidad con personas en bus
 
 Se diseñaron dos posibles arquitecturas para la aplicación.
 
+1. [Arquitectura de desarrollo y producción con pocos usuarios](#arquitectura-de-desarrollo-y-producción-con-pocos-usuarios)
+2. [Arquitectura de producción altamente escalable](#arquitectura-de-producción-altamente-escalable)
+
 ## Arquitectura de desarrollo y producción con pocos usuarios
 
 La primera arquitectura es una aproximación de monolito, que aprovecha las ventajas de AWS Amplify.
@@ -32,14 +35,16 @@ Entre las más importantes:
 
 > Crear un back-end de AWS para su web, iOS o aplicación de Android con autenticación, datos, almacenamiento y más en cuestión de minutos.
 
-> Crear de manera visual una IU de front-end con integración Figma de diseño a código y conecte la IU a un back-end con unos pocos clics.
+> Crear de manera visual una IU de front-end con integración **Figma** de diseño a código y conecte la IU a un back-end con unos pocos clics.
 
-Y aprovechando que todos los mocks de la aplicación se hicieron con Figma, la integración y desarrollo sería relativamente rápida cumpliendo de igual forma los requisitos de funcionalidad en tiempo real.
+Y aprovechando que todos los mocks de la aplicación se hicieron con **Figma**, la integración y desarrollo sería relativamente rápida cumpliendo de igual forma los requisitos de funcionalidad en tiempo real.
 
-A continuación se ilustran los flujos a seguir para el backend y frontend respectivamente, así como la arquitectura propuesta:
+A continuación se ilustran los flujos a seguir para el backend y frontend respectivamente: 
 
 ![](assets/img/diagrams/Amplify_Create-App-Backend.png)
 ![](assets/img/diagrams/AWS-Amplify_Build-Frontend-UI.png)
+
+En cuanto a la arquitectura propuesta, a continuación se ilustra el diagrama:
 
 ![](assets/img/diagrams/AWS%20Dev%20Infra.png)
 
@@ -65,6 +70,13 @@ A continuación se ilustra la arquitectura propuesta:
 
 Se encarga de guardar la información modificada del perfil, mooviers favoritos e historial de moves en la base de datos en [Amazon DynamoDB](#amazon-dynamodb).
 Esta aplicación puede ser desarrollada en cualquier lenguaje de programación y también se encarga de lanzar la acción que desencadene el topic de [Amazon SNS](#amazon-sns).
+
+1. [AWS Lambda (Python)](#aws-lambda-python)
+2. [AWS Lambda (Creación de usuarios)](#aws-lambda-creación-de-usuarios)
+3. [AWS Lambda (Guardar ubicación de Mooviers)](#aws-lambda-guardar-ubicación-de-mooviers)
+4. [Amazon SNS](#amazon-sns)
+5. [AWS AppSync](#aws-appsync)
+6. [Amazon Cognito](#amazon-cognito)
 
 ### AWS Lambda (Python)
 
@@ -100,6 +112,9 @@ Permite utilizar cuentas existentes para autenticarse como Google, Facebook, etc
 
 Se encarga de la interfaz de usuario para el usuario y para el **moovier** que utiliza la aplicación para prestar sus servicios.
 
+1. [Elastic Load Balancer](#elastic-load-balancer)
+2. [EC2 Auto Scaling](#ec2-auto-scaling)
+
 ### Elastic Load Balancer
 
 Se encarga de distribuir el tráfico entre las instancias de EC2 que suministren el frontend acorde el tipo de usuario que lo utiliza (usuario/cliente o **moovier**).
@@ -110,6 +125,9 @@ Se encarga de escalar e incrementar las instancias de EC2 para un frontend espec
 
 ## Base de datos
 
+1. [Amazon DynamoDB](#amazon-dynamodb)
+2. [Amazon ElastiCache for Redis](#amazon-elasticache-for-redis)
+
 ### Amazon DynamoDB
 
 Base de Datos NoSQL para la administración de usuarios. Precisamente como los usuarios distintos el hecho de usar una base no relacional hace más sentido.
@@ -119,6 +137,12 @@ Base de Datos NoSQL para la administración de usuarios. Precisamente como los u
 Base de datos que ofrece una latencia inferior al milisegundo para operaciones de lectura y escritura y admite múltiples casos de uso como operaciones en tiempo real, utilizada para la gestión de ubicaciones de los **mooviers**.
 
 ## Networking
+
+1. [Amazon Route 53](#amazon-route-53)
+2. [AWS WAF](#aws-waf)
+3. [Amazon CloudFront](#amazon-cloudfront)
+4. [Internet Gateway](#internet-gateway)
+5. [Amazon API Gateway](#amazon-api-gateway)
 
 ### Amazon Route 53
 
